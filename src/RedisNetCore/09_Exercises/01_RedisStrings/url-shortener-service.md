@@ -14,18 +14,19 @@ Utwórz usługę, która:
 
 ## Wymagania
 1. Generowanie skrótu dla URL (POST /shorten)
-- Użytkownik wysyła zapytanie POST do endpointu /shorten w formacie JSON:
-```
+- Użytkownik wysyła zapytanie POST do endpointu `/shorten` w formacie JSON:
+```json
 {
   "url": "https://example.com/some-long-url"
 }
 ```
 
 - Odpowiedź zwraca skrócony URL w formacie JSON:
+```json
 {
   "short_url": "https://short.ly/aBc123"
 }
-
+```
 
 2. Odwzorowanie skrótu na pełny URL
 
@@ -41,7 +42,7 @@ Location: https://example.com/some-long-url
 3. Walidacja danych wejściowych
 - Zapewnij, że wprowadzony URL jest prawidłowy.
 - Jeśli URL jest nieprawidłowy, zwróć błąd HTTP 400 z odpowiednią wiadomością:
-```
+```json
 {
   "error": "Invalid URL format"
 }
@@ -51,9 +52,11 @@ Location: https://example.com/some-long-url
 4. Obsługa duplikatów
 - Przed wygenerowaniem nowego skrótu sprawdź, czy dany URL już istnieje w Redis:
 - Jeśli istnieje, zwróć istniejący skrót:
+```json
 {
   "short_url": "https://short.ly/{short_url}"
 }
+```
 - Jeśli nie istnieje, wygeneruj nowy skrót.
 
 5. Parametry konfiguracyjne
