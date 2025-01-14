@@ -29,7 +29,7 @@ Utwórz usługę, która:
 
 2. Odwzorowanie skrótu na pełny URL
 
-- Użytkownik wysyła zapytanie GET na endpoint /{short_url}
+- Użytkownik wysyła zapytanie GET na endpoint `/{short_url}`
 - Jeśli istnieje, zwraca pełny adres URL jako odpowiedź HTTP 302 (przekierowanie):
 ```
 HTTP/1.1 302 Found
