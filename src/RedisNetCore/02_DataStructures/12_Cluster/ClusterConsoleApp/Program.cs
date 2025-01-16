@@ -7,25 +7,34 @@ ConfigurationOptions options = new ConfigurationOptions
 {
     EndPoints =
     {
-        "173.18.0.2:6379",
-        "173.18.0.3:6379",
-        "173.18.0.4:6379",
-        "173.18.0.5:6379",
-        "173.18.0.6:6379",
-        "173.18.0.7:6379",
-    }
+        "192.168.104.85:7000",
+        "192.168.104.85:7001",
+        "192.168.104.85:7002",
+        "192.168.104.85:7003",
+        "192.168.104.85:7004",
+        "192.168.104.85:7005",
+    },
+
+    AbortOnConnectFail = false,
+    SyncTimeout = 5000,
 };
+
+
+string connectionString = "joe:secret@localhost";
 
 ConnectionMultiplexer connectionMultiplexer = ConnectionMultiplexer.Connect(options);
 IDatabase db = connectionMultiplexer.GetDatabase();
 
 Console.WriteLine(db.Ping());
 
+db.StringSet("foo", "boo");
+
+// Console.WriteLine(db.StringGet("foo"));
 
 IBatch batch = db.CreateBatch();
 
 var tasks = Enumerable.Range(0, 5)
-    .Select(i => batch.StringSetAsync("{test:}" + i, i.ToString()))
+    .Select(i => batch.StringSetAsync("foo" + i, i.ToString()))
     .ToList();
 
 // Task task = batch.StringSetAsync("message", "hello");
@@ -36,9 +45,7 @@ batch.Execute();
 
 await Task.WhenAll(tasks);
 
-db.StringSet("foo", "boo");
 
-Console.WriteLine(db.StringGet("foo"));
 
 Console.WriteLine("Finished.");
 
