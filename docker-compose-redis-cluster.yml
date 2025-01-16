@@ -11,6 +11,9 @@ services:
     networks:
       redis_cluster_net:
         ipv4_address: 173.18.0.2
+    environment:
+      - REDIS_CLUSTER_ANNOUNCE_IP=192.168.104.85
+      - REDIS_CLUSTER_ANNOUNCE_PORT=7000    
 
   redis_2:
     image: "redis:latest"
@@ -24,6 +27,9 @@ services:
     networks:
       redis_cluster_net:
         ipv4_address: 173.18.0.3
+    environment:
+      - REDIS_CLUSTER_ANNOUNCE_IP=192.168.104.85
+      - REDIS_CLUSTER_ANNOUNCE_PORT=7001    
 
   redis_3:
     image: "redis:latest"
@@ -37,6 +43,9 @@ services:
     networks:
       redis_cluster_net:
         ipv4_address: 173.18.0.4
+    environment:
+      - REDIS_CLUSTER_ANNOUNCE_IP=192.168.104.85
+      - REDIS_CLUSTER_ANNOUNCE_PORT=7002    
 
   redis_4:
     image: "redis:latest"
@@ -50,6 +59,9 @@ services:
     networks:
       redis_cluster_net:
         ipv4_address: 173.18.0.5
+    environment:
+      - REDIS_CLUSTER_ANNOUNCE_IP=192.168.104.85
+      - REDIS_CLUSTER_ANNOUNCE_PORT=7003    
 
   redis_5:
     image: "redis:latest"
@@ -63,6 +75,9 @@ services:
     networks:
       redis_cluster_net:
         ipv4_address: 173.18.0.6
+    environment:
+      - REDIS_CLUSTER_ANNOUNCE_IP=192.168.104.85
+      - REDIS_CLUSTER_ANNOUNCE_PORT=7004    
 
   redis_6:
     image: "redis:latest"
@@ -76,6 +91,9 @@ services:
     networks:
       redis_cluster_net:
         ipv4_address: 173.18.0.7
+    environment:
+      - REDIS_CLUSTER_ANNOUNCE_IP=192.168.104.85
+      - REDIS_CLUSTER_ANNOUNCE_PORT=7005    
 
 # Ephemeral container to create the Redis cluster connections.
 # Once the setup is done, this container shuts down
@@ -91,7 +109,7 @@ services:
       - redis_4
       - redis_5
       - redis_6
-    command: "redis-cli --cluster create 173.18.0.2:6379 173.18.0.3:6379 173.18.0.4:6379 173.18.0.5:6379 173.18.0.6:6379 173.18.0.7:6379 --cluster-replicas 1 --cluster-yes"
+    command: "redis-cli --cluster create 192.168.104.85:7000 192.168.104.85:7001 192.168.104.85:7002 192.168.104.85:7003 192.168.104.85:7004 192.168.104.85:7005 --cluster-replicas 1 --cluster-yes"
     networks:
       redis_cluster_net:
         ipv4_address: 173.18.0.8
