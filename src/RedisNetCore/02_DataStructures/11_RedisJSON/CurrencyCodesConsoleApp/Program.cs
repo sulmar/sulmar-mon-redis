@@ -13,6 +13,19 @@ Console.WriteLine("Hello, World!");
 ConnectionMultiplexer connectionMultiplexer = ConnectionMultiplexer.Connect("localhost");
 IDatabase db = connectionMultiplexer.GetDatabase();
 
+
+string message = null;
+    
+var messageResult = db.StringSet("message", message);
+
+message = db.StringGet("message");
+
+if (string.IsNullOrEmpty(message))
+{
+    Console.WriteLine("null");
+}
+
+
 while (true)
 {
     Console.Write("Podaj symbol waluty: ");
@@ -55,4 +68,3 @@ while (true)
 }
 
 
-    
